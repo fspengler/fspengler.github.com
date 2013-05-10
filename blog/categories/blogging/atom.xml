@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Fred`s Coding Blog]]></title>
-  <link href="http://fspengler.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Blogging | Fred`s Coding Blog]]></title>
+  <link href="http://fspengler.github.io/blog/categories/blogging/atom.xml" rel="self"/>
   <link href="http://fspengler.github.io/"/>
   <updated>2013-05-10T17:06:32-03:00</updated>
   <id>http://fspengler.github.io/</id>
@@ -22,9 +22,9 @@
 
 <p>So this will be my coding blog.</p>
 
-<p>I&#8217;m starting some projects (mainly <em>Ruby on Rails</em>) and along the way I&#8217;m finding that as friendly as Ruby and Rails may be, there are still some stuff that are not that easy to grasp at first. With this blog I intend to write down what I learn from these projects as a way to fixate all that stuff in my head and, with a little luck bring joy to those other Rails newbies out there who may run into the same issues as I.</p>
+<p>I'm starting some projects (mainly <em>Ruby on Rails</em>) and along the way I'm finding that as friendly as Ruby and Rails may be, there are still some stuff that are not that easy to grasp at first. With this blog I intend to write down what I learn from these projects as a way to fixate all that stuff in my head and, with a little luck bring joy to those other Rails newbies out there who may run into the same issues as I.</p>
 
-<p>Cheers to all and let&#8217;s code!</p>
+<p>Cheers to all and let's code!</p>
 
 <p>Fred</p>
 ]]></content>
