@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Fred's Coding Blog]]></title>
-  <link href="http://fspengler.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Ruby | Fred's Coding Blog]]></title>
+  <link href="http://fspengler.github.io/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://fspengler.github.io/"/>
   <updated>2013-05-10T22:34:14-03:00</updated>
   <id>http://fspengler.github.io/</id>
@@ -28,23 +28,21 @@
 
 <p>Assuming you&rsquo;ll be naming your controller-specific assets something like <code>controller.css.scss</code> and <code>controller.js.coffee</code>, you can include them selectively by adding the two following lines to your <code>applications.html.erb</code> file:</p>
 
-<figure class='code'><figcaption><span>Adding Controller-specific Assets to yout layout - application.html.erb </span></figcaption>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Adding Controller-specific Assets to yout layout &ndash; application.html.erb </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="cp">&lt;%=</span> <span class="n">stylesheet_link_tag</span> <span class="n">params</span><span class="o">[</span><span class="ss">:controller</span><span class="o">]</span> <span class="k">if</span> <span class="ss">AppName</span><span class="p">:</span><span class="ss">:Application</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">find_asset</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">#{</span><span class="n">params</span><span class="o">[</span><span class="ss">:controller</span><span class="o">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="x"></span>
-</span><span class='line'><span class="cp">&lt;%=</span> <span class="n">javascript_include_tag</span> <span class="n">params</span><span class="o">[</span><span class="ss">:controller</span><span class="o">]</span> <span class="k">if</span> <span class="ss">AppName</span><span class="p">:</span><span class="ss">:Application</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">find_asset</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">#{</span><span class="n">params</span><span class="o">[</span><span class="ss">:controller</span><span class="o">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="x"></span>
-</span></code></pre></td></tr></table></div></figure>
-
+</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="x">&amp;lt;%= stylesheet_link_tag params[:controller] if AppName::Application.assets.find_asset(&amp;ldquo;#{params[:controller]}&amp;rdquo;) </span><span class="err">%&gt;</span><span class="x"></span>
+</span><span class='line'><span class="x">&amp;lt;%= javascript_include_tag params[:controller] if AppName::Application.assets.find_asset(&amp;ldquo;#{params[:controller]}&amp;rdquo;) </span><span class="err">%&gt;</span><span class="x"></span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>This works like a charm in development environment, but if you leave it at that and try to use it in production it will fail. It fails because by default Rails does not precompile assets that are not explicitly referenced by a <code>require</code> statement (Read more about that on the <a href="http://guides.rubyonrails.org/asset_pipeline.html" title="Rails Asset Pipeline Guide">Rails Asset Pipeline Guide</a>.)</p>
 
 <p>As it <a href="http://stackoverflow.com/questions/7425929/rails-3-1-strategy-for-pre-compiling-controller-specific-js-assets" title="Stack Overflow Question">turns out</a>, there&rsquo;s a config variable you can set in <code>config/application.rb</code> to make Rails explicitly precompile extra assets. You can go ahead and manually add your files to that list:</p>
 
-<figure class='code'><figcaption><span>Manually Adding Extra Assets to Precompile - config/application.rb </span></figcaption>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Manually Adding Extra Assets to Precompile &ndash; config/application.rb </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="n">config</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">precompile</span> <span class="o">+=</span> <span class="sx">%w( controller.css )</span>
-</span></code></pre></td></tr></table></div></figure>
-
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <blockquote><h2>Hint!</h2>
 
@@ -52,34 +50,22 @@
 
 <p>Ok. But what if I have a bunch of files? Or what if I don&rsquo;t even know yet which or how many extra files I want precompiled? Having to name them all is too cumbersome, so we&rsquo;ll tell Rails which files we want precompiled with a <a href="http://en.wikipedia.org/wiki/Regular_expression" title="Wikipedia: Regular Expressions">RegExp</a>!</p>
 
-<figure class='code'><figcaption><span>Adding Extra Assets to Precompile with RegExp - config/application.rb </span></figcaption>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Adding Extra Assets to Precompile with RegExp &ndash; config/application.rb </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="c1"># Precompile *all* assets, except those that start with underscore</span>
-</span><span class='line'><span class="n">config</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">precompile</span> <span class="o">&lt;&lt;</span> <span class="sr">/(^[^_\/]|\/[^_])[^\/]*$/</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;h1&gt;Precompile &lt;em&gt;all&lt;/em</span><span class="o">&gt;</span> <span class="n">assets</span><span class="p">,</span> <span class="n">except</span> <span class="n">those</span> <span class="n">that</span> <span class="n">start</span> <span class="n">with</span> <span class="n">underscore</span><span class="o">&lt;</span><span class="sr">/h1&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;config.assets.precompile &amp;lt;&amp;lt; /</span><span class="p">(</span><span class="o">^[^&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="p">\</span><span class="o">/]|</span><span class="p">\</span><span class="o">/[^&lt;</span><span class="sr">/em&gt;])[^\/]*$/</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>There it is! So now Rails will precompile all assets, except those starting with an underscore (that way we can even have asset partials), and the solution will work in production environment!</p>
 
 <p>The RegExp is courtesy of Matt Brictson, of <a href="http://www.55minutes.com" title="55 Minutes">55 Minutes</a>. I came across it on a post he made about <a href="http://blog.55minutes.com/2012/01/getting-compass-to-work-with-rails-31-and-32/" title="Getting Compass to Work with Rails 3.1 (and 3.2)">making Compass work with Rails 3.1/3.2</a>. Apparently you also have to precompile extra assets when using compass.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Hello World!]]></title>
-    <link href="http://fspengler.github.io/blog/2013/05/10/hello-world/"/>
-    <updated>2013-05-10T16:51:00-03:00</updated>
-    <id>http://fspengler.github.io/blog/2013/05/10/hello-world</id>
-    <content type="html"><![CDATA[<h1>Hi</h1>
-
-<p>So this will be my coding blog.</p>
-
-<p>I&rsquo;m starting some projects (mainly <em>Ruby on Rails</em>) and along the way I&rsquo;m finding that as friendly as Ruby and Rails may be, there are still some stuff that are not that easy to grasp at first. With this blog I intend to write down what I learn from these projects as a way to fixate all that stuff in my head and, with a little luck bring joy to those other Rails newbies out there who may run into the same issues as I.</p>
-
-<p>Cheers to all and let&rsquo;s code!</p>
-
-<p>Fred</p>
 ]]></content>
   </entry>
   

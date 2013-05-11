@@ -7,7 +7,7 @@
 	<meta name="author" content="Frederico Spengler">
 
 	
-	<meta name="description" content="May 10th, 2013 Blogging Comments Hello World! Hi So this will be my coding blog. I&rsquo;m starting some projects (mainly Ruby on Rails) and along &hellip;">
+	<meta name="description" content="May 10th, 2013 Asset Pipeline, CSS, JavaScript, Rails, Ruby Comments Using Controller-specific CSS/JavaScript With Rails Asset Pipeline While &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,87 @@
 			<div class="mid-col-container">
 				<div id="content" class="inner">
 <div itemscope itemtype="http://schema.org/Blog">
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-10T18:36:00-03:00" data-updated="true" itemprop="datePublished">May 10<span>th</span>, 2013</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/asset-pipeline/'>Asset Pipeline</a>, <a class='category' href='/blog/categories/css/'>CSS</a>, <a class='category' href='/blog/categories/javascript/'>JavaScript</a>, <a class='category' href='/blog/categories/rails/'>Rails</a>, <a class='category' href='/blog/categories/ruby/'>Ruby</a>
+
+
+</div>
+		
+			<span class="comments"><a href="/blog/2013/05/10/using-controller-specific-css-slash-javascript-with-rails-asset-pipeline/#disqus_thread">Comments</a></span>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2013/05/10/using-controller-specific-css-slash-javascript-with-rails-asset-pipeline/" itemprop="url">Using Controller-specific CSS/JavaScript With Rails Asset Pipeline</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>While designing my first Rails (3.2) app I found myself wanting to add specific styling and javascript bits to some controllers without affecting others.</p>
+
+<p>I imagined having files named after controllers and make Sprockets automagically include the controller-specific assets based on the context. But how?</p>
+
+<p>Well, we can&rsquo;t add a <code>require</code> statement to <code>application.css</code> or <code>application.js</code> because that would include the required file for all controllers, and there&rsquo;s no such thing as a &ldquo;conditional require&rdquo;. So how do we do it?</p>
+
+<p>Actually I found out the solution is pretty easy, but there&rsquo;s a small twist to make it work in production environment.</p>
+
+<p>Assuming you&rsquo;ll be naming your controller-specific assets something like <code>controller.css.scss</code> and <code>controller.js.coffee</code>, you can include them selectively by adding the two following lines to your <code>applications.html.erb</code> file:</p>
+
+<figure class='code'><figcaption><span>Adding Controller-specific Assets to yout layout - application.html.erb </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="cp">&lt;%=</span> <span class="n">stylesheet_link_tag</span> <span class="n">params</span><span class="o">[</span><span class="ss">:controller</span><span class="o">]</span> <span class="k">if</span> <span class="ss">AppName</span><span class="p">:</span><span class="ss">:Application</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">find_asset</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">#{</span><span class="n">params</span><span class="o">[</span><span class="ss">:controller</span><span class="o">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span><span class='line'><span class="cp">&lt;%=</span> <span class="n">javascript_include_tag</span> <span class="n">params</span><span class="o">[</span><span class="ss">:controller</span><span class="o">]</span> <span class="k">if</span> <span class="ss">AppName</span><span class="p">:</span><span class="ss">:Application</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">find_asset</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">#{</span><span class="n">params</span><span class="o">[</span><span class="ss">:controller</span><span class="o">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This works like a charm in development environment, but if you leave it at that and try to use it in production it will fail. It fails because by default Rails does not precompile assets that are not explicitly referenced by a <code>require</code> statement (Read more about that on the <a href="http://guides.rubyonrails.org/asset_pipeline.html" title="Rails Asset Pipeline Guide">Rails Asset Pipeline Guide</a>.)</p>
+
+<p>As it <a href="http://stackoverflow.com/questions/7425929/rails-3-1-strategy-for-pre-compiling-controller-specific-js-assets" title="Stack Overflow Question">turns out</a>, there&rsquo;s a config variable you can set in <code>config/application.rb</code> to make Rails explicitly precompile extra assets. You can go ahead and manually add your files to that list:</p>
+
+<figure class='code'><figcaption><span>Manually Adding Extra Assets to Precompile - config/application.rb </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="n">config</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">precompile</span> <span class="o">+=</span> <span class="sx">%w( controller.css )</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<blockquote><h2>Hint!</h2>
+
+<p>When telling Rails which files you want precompiled, <strong>always</strong> use the filename the asset will have at the end of the process. So even if you plan to use Sass for a stylesheet and will write a file named <code>controller.css.scss</code>, the file you want to inform Rails is simply <code>controller.css</code>.</p></blockquote>
+
+<p>Ok. But what if I have a bunch of files? Or what if I don&rsquo;t even know yet which or how many extra files I want precompiled? Having to name them all is too cumbersome, so we&rsquo;ll tell Rails which files we want precompiled with a <a href="http://en.wikipedia.org/wiki/Regular_expression" title="Wikipedia: Regular Expressions">RegExp</a>!</p>
+
+<figure class='code'><figcaption><span>Adding Extra Assets to Precompile with RegExp - config/application.rb </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="c1"># Precompile *all* assets, except those that start with underscore</span>
+</span><span class='line'><span class="n">config</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">precompile</span> <span class="o">&lt;&lt;</span> <span class="sr">/(^[^_\/]|\/[^_])[^\/]*$/</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>There it is! So now Rails will precompile all assets, except those starting with an underscore (that way we can even have asset partials), and the solution will work in production environment!</p>
+
+<p>The RegExp is courtesy of Matt Brictson, of <a href="http://www.55minutes.com" title="55 Minutes">55 Minutes</a>. I came across it on a post he made about <a href="http://blog.55minutes.com/2012/01/getting-compass-to-work-with-rails-31-and-32/" title="Getting Compass to Work with Rails 3.1 (and 3.2)">making Compass work with Rails 3.1/3.2</a>. Apparently you also have to precompile extra assets when using compass.</p>
+
+		
+		
+	</div>
+
+</article>
 
 
     <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">

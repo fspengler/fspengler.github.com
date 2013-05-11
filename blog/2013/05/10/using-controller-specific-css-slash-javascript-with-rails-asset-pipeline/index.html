@@ -1,24 +1,84 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Fred's Coding Blog]]></title>
-  <link href="http://fspengler.github.io/atom.xml" rel="self"/>
-  <link href="http://fspengler.github.io/"/>
-  <updated>2013-05-10T22:34:14-03:00</updated>
-  <id>http://fspengler.github.io/</id>
-  <author>
-    <name><![CDATA[Frederico Spengler]]></name>
-    <email><![CDATA[spengler@gmail.com]]></email>
-  </author>
-  <generator uri="http://octopress.org/">Octopress</generator>
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Using controller-specific CSS/JavaScript with Rails Asset Pipeline - Fred's Coding Blog</title>
+	<meta name="author" content="Frederico Spengler">
 
-  
-  <entry>
-    <title type="html"><![CDATA[Using controller-specific CSS/JavaScript with Rails Asset Pipeline]]></title>
-    <link href="http://fspengler.github.io/blog/2013/05/10/using-controller-specific-css-slash-javascript-with-rails-asset-pipeline/"/>
-    <updated>2013-05-10T18:36:00-03:00</updated>
-    <id>http://fspengler.github.io/blog/2013/05/10/using-controller-specific-css-slash-javascript-with-rails-asset-pipeline</id>
-    <content type="html"><![CDATA[<p>While designing my first Rails (3.2) app I found myself wanting to add specific styling and javascript bits to some controllers without affecting others.</p>
+	
+	<meta name="description" content="Using Controller-specific CSS/JavaScript With Rails Asset Pipeline While designing my first Rails (3.2) app I found myself wanting to add specific &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Fred's Coding Blog" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://fspengler.github.io/blog/2013/05/10/using-controller-specific-css-slash-javascript-with-rails-asset-pipeline/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">	
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		document.write("<img src='http://www.gravatar.com/avatar/" + MD5("spengler@gmail.com") + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+	</script>
+</div>
+<h1><a href="/">Fred's Coding Blog</a></h1>
+<p class="subtitle">For mainly Ruby on Rails goodies.</p>
+<nav id="main-nav"><ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		
+		
+		<a class="twitter" href="http://twitter.com/fredspengler" title="Twitter">Twitter</a>
+		
+		
+		<a class="github" href="https://github.com/fspengler" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+
+
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Using Controller-specific CSS/JavaScript With Rails Asset Pipeline</h1>
+	<div class="entry-content" itemprop="articleBody"><p>While designing my first Rails (3.2) app I found myself wanting to add specific styling and javascript bits to some controllers without affecting others.</p>
 
 <p>I imagined having files named after controllers and make Sprockets automagically include the controller-specific assets based on the context. But how?</p>
 
@@ -63,24 +123,72 @@
 <p>There it is! So now Rails will precompile all assets, except those starting with an underscore (that way we can even have asset partials), and the solution will work in production environment!</p>
 
 <p>The RegExp is courtesy of Matt Brictson, of <a href="http://www.55minutes.com" title="55 Minutes">55 Minutes</a>. I came across it on a post he made about <a href="http://blog.55minutes.com/2012/01/getting-compass-to-work-with-rails-31-and-32/" title="Getting Compass to Work with Rails 3.1 (and 3.2)">making Compass work with Rails 3.1/3.2</a>. Apparently you also have to precompile extra assets when using compass.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Hello World!]]></title>
-    <link href="http://fspengler.github.io/blog/2013/05/10/hello-world/"/>
-    <updated>2013-05-10T16:51:00-03:00</updated>
-    <id>http://fspengler.github.io/blog/2013/05/10/hello-world</id>
-    <content type="html"><![CDATA[<h1>Hi</h1>
+</div>
 
-<p>So this will be my coding blog.</p>
+</article>
 
-<p>I&rsquo;m starting some projects (mainly <em>Ruby on Rails</em>) and along the way I&rsquo;m finding that as friendly as Ruby and Rails may be, there are still some stuff that are not that easy to grasp at first. With this blog I intend to write down what I learn from these projects as a way to fixate all that stuff in my head and, with a little luck bring joy to those other Rails newbies out there who may run into the same issues as I.</p>
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
 
-<p>Cheers to all and let&rsquo;s code!</p>
 
-<p>Fred</p>
-]]></content>
-  </entry>
-  
-</feed>
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+			</div>
+			<footer id="footer" class="inner"><p>
+  Copyright &copy; 2013 - Frederico Spengler -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+			<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'fredscodingblog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://fspengler.github.io/blog/2013/05/10/using-controller-specific-css-slash-javascript-with-rails-asset-pipeline/';
+        var disqus_url = 'http://fspengler.github.io/blog/2013/05/10/using-controller-specific-css-slash-javascript-with-rails-asset-pipeline/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+		</div>
+	</div>
+</body>
+</html>
